@@ -101,6 +101,7 @@ Refobject.on('value', function(snapshot) {
                 var k = keys[i]
 
                 console.log(keylengths);
+                console.log(k);
 
                 var payload = {
                     to: k,
