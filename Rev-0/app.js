@@ -35,17 +35,17 @@ messaging.requestPermission()
         console.log('Unable to get permission to notify. ', err);
     })
     // -----------
-    //var database = firebase.database();
-    //var ref = database.ref('Tokens')
-    //ref.once("value")
-    //.then(function(snapshot) {
-    //var keyy = Object.keys(snapshot.val());
-    //var uz = keyy.length;
-    //var first = keyy[0];
+var database = firebase.database();
+var ref = database.ref('Tokens')
+ref.once("value")
+    .then(function(snapshot) {
+        var keyy = Object.keys(snapshot.val());
+        var uz = keyy.length;
+        var first = keyy[0];
 
-//console.log(keyy);
-//console.log(uz);
-//});
+        console.log(keyy);
+        console.log(uz);
+    });
 
 // -----------
 
@@ -69,9 +69,6 @@ function FCMCourier(apiKey) {
         xhttp.send(JSON.stringify(notification));
     };
 };
-
-
-//-----
 var database = firebase.database();
 var Refobject = database.ref('PushEvents/LastEvent').child('0');
 
@@ -88,42 +85,33 @@ Refobject.on('value', function(snapshot) {
             var keys = Object.keys(snapshot.val());
             //var first = keys[0];
             var keylengths = keys.length;
-            //for (var i = 0; i < keylengths; i++) {
-            //var k = keys[i]
-            //console.log(k);
-            //}
-            //------
-            //var list = keys.join();
-            //console.log(list);
-            //------
-
             for (var i = 0; i < keylengths; i++) {
                 var k = keys[i]
+                console.log(k);
+            }
 
-                console.log(keylengths);
 
-                var payload = {
-                    to: k,
-                    content_available: true, // for iOS
-                    priority: 'high',
-                    notification: {
-                        title: sourcecode,
-                        body: descriptioncode + '-' + 'ʘ︵ʘ' + '-' + datimecode,
-                        icon: 'firebase-logo.png',
-                        //click_action : "https://judaedge.github.io"
-                    }
 
+
+            var payload = {
+                to: k,
+                content_available: true, // for iOS
+                priority: 'high',
+
+
+
+                notification: {
+                    title: sourcecode,
+                    body: descriptioncode + ' - - ' + datimecode,
+                    icon: 'firebase-logo.png',
+                    //click_action : "https://judaedge.github.io"
                 }
 
-                courier.push(payload, console.log.bind(console));
-                //console.log(to);
-                messaging.onMessage(function(payload) {
-                    console.log('Message Received', payload);
-                });
-
             }
+
+            courier.push(payload, console.log.bind(console));
+            messaging.onMessage(function(payload) {
+                console.log('Message Received', payload);
+            });
         });
-
-
-    //-----
 });
